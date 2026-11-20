@@ -4,8 +4,7 @@
 #    baked in at centre 85.7%/32.8%, Ø226 px — no separate logo overlay)
 # Option bar: item_c.png rgba(30,30,46,0.65) / select_c.png rgba(180,190,254,0.30)
 # Fonts: BigBlueTerm437 Nerd Font Regular 24 (menu items),
-#        BigBlueTerm437 Nerd Font Regular 28 (countdown label),
-#        BigBlueTerm437 Nerd Font Regular 26 (terminal-font)
+#        BigBlueTerm437 Nerd Font Regular 28 (terminal + countdown label)
 # Icons: icons/<class>.png, 36x36 PNG32 (normalized); GRUB picks the first class of
 #   the entry that has a matching file (arch, windows, ubuntu, fedora, debian,
 #   opensuse, void, nixos, systemrescue, gnu-linux, unknown).
@@ -13,7 +12,7 @@
 title-text: ""
 desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
-terminal-font: "BigBlueTerm437 Nerd Font Regular 26"
+terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
 
 # Boot menu — inside the HUD frame, 6 visible rows out of 10 (scrollable window).
 # Frame refs (measured on background.png): top border 140-178, left wall 786-825,

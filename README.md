@@ -1,105 +1,89 @@
-# GRUB Theme — Ciel Mocha
+# GRUB Theme Ciel Mocha
 
-GRUB2 gfxmenu theme cho VM Arch Linux (virt-manager/kvm, UEFI): nền **Ciel** (nhân vật + khung HUD
-+ avatar Ciel nướng sẵn ở góc trên phải), bảng màu **Catppuccin Mocha**, font **BigBlueTerm437 Nerd Font**.
-
-## Preview
+GRUB2 theme for Arch Linux (UEFI). The background is the Ciel character inside a HUD
+frame, using the Catppuccin Mocha palette and the BigBlueTerm437 Nerd Font.
 
 <p align="center">
   <img src="assets/grub-ciel-vm-6rows-icons.png" alt="GRUB boot screen — 6 rows with OS icons" width="900">
 </p>
 
-## Cấu trúc
+## Structure
 
 ```
 src/catppuccin-mocha-grub-theme/
-├── theme.txt                   # cấu hình theme
-├── background.png              # 1920x1080, PNG24 8-bit, non-interlaced (nhân vật + khung HUD + avatar)
-├── ciel_bg_grub_edited_3.jpg   # bản export gốc từ Figma (1922x1083 — crop +1+1 trước khi dùng)
-├── item_c.png                  # thanh option chưa chọn  rgba(30,30,46,0.65)
-├── select_c.png                # thanh option đang chọn  rgba(180,190,254,0.30)
-├── logo_ciel.png               # 226x226 PNG32, lavender #B4BEFE (không dùng — avatar đã nướng trong nền)
-├── bigblue28.pf2               # font BigBlueTerm437 Nerd Font Regular 28
-├── bigblue24.pf2               # font BigBlueTerm437 Nerd Font Regular 24 (menu item)
-├── font.pf2                    # font cũ của upstream (không dùng)
-└── icons/                      # icon hệ điều hành cho menu entry
+├── theme.txt              # theme configuration
+├── background.png         # 1920x1080, PNG24, non-interlaced
+├── item_c.png             # unselected option bar
+├── select_c.png           # selected option bar
+├── logo_ciel.png          # 226x226 PNG32 (unused — the avatar is baked into the background)
+├── bigblue24.pf2          # font for menu items
+├── bigblue28.pf2          # font for the label
+└── icons/                 # OS icons, 36x36 PNG32
 ```
 
-## Cài đặt
+## Install
 
-1. Copy theme vào `/boot/grub/themes/` (thay `TEN_THEME` bằng tên thư mục bạn muốn):
+Copy the theme and the fonts:
 
-   ```sh
-   sudo cp -r src/catppuccin-mocha-grub-theme /boot/grub/themes/TEN_THEME/
-   sudo cp src/catppuccin-mocha-grub-theme/bigblue28.pf2 /boot/grub/fonts/
-   sudo cp src/catppuccin-mocha-grub-theme/bigblue24.pf2 /boot/grub/fonts/
-   ```
+```bash
+sudo cp -r src/catppuccin-mocha-grub-theme /boot/grub/themes/TEN_THEME/
+sudo cp src/catppuccin-mocha-grub-theme/bigblue*.pf2 /boot/grub/fonts/
+```
 
-2. Sửa `/etc/default/grub`:
+Edit `/etc/default/grub`:
 
-   ```sh
-   GRUB_THEME="/boot/grub/themes/TEN_THEME/theme.txt"
-   GRUB_FONTS="bigblue28 bigblue24"
-   GRUB_GFXMODE=1920x1080x32,auto
-   GRUB_TIMEOUT=30
-   # KHÔNG đặt GRUB_TERMINAL_OUTPUT — nó vô hiệu hoá khối gfxterm + theme
-   ```
+```
+GRUB_THEME="/boot/grub/themes/TEN_THEME/theme.txt"
+GRUB_FONTS="bigblue28 bigblue24"
+GRUB_GFXMODE=1920x1080x32,auto
+```
 
-3. Cập nhật cấu hình:
+Do not set `GRUB_TERMINAL_OUTPUT`, it disables the theme.
 
-   ```sh
-   sudo grub-mkconfig -o /boot/grub/grub.cfg
-   ```
+Update the configuration:
 
-   Phải thấy `Found theme: ...`; kiểm tra lại:
-   `grep -E "gfxmode|set theme|terminal_output gfxterm" /boot/grub/grub.cfg`
+```bash
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
 
-## Bố cục (theme.txt)
+A `Found theme` line means the theme was picked up.
 
-| Thành phần | Giá trị |
+## Main configuration
+
+| Component | Value |
 |---|---|
-| `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD + avatar, `stretch` |
-| `boot_menu` | `left 49%`, `top 27%`, `width 31%`, `height 468` |
-| item | `item_height 64`, `item_spacing 12`, `item_padding 12`, `icon_width 36`, `icon_height 36`, `item_icon_space 10`, `scrollbar false` |
-| số dòng hiện | **6 dòng** (cửa sổ cuộn trên 10 mục); `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 6 khi `H = 468` (`6*64 + 5*12 + 2*12`). `H = 444` chỉ cho 5 dòng |
-| font | `BigBlueTerm437 Nerd Font Regular 24` cho `item_font`/`selected_item_font`; `…28` cho label; `…26` cho `terminal-font` |
-| icon | `icons/<class>.png` 36×36 PNG32; GRUB lấy class đầu tiên có file khớp (`arch`, `windows`, `ubuntu`, `fedora`, `debian`, `opensuse`, `void`, `nixos`, `systemrescue`, `gnu-linux`, `unknown`) |
-| màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
-| nền thanh | `item_pixmap_style = "item_*.png"` / `selected_item_pixmap_style = "select_*.png"` (bắt buộc có `*` — GRUB 2.16 trả lỗi pattern thiếu `*` → box rỗng) |
-| `label` | đồng hồ đếm ngược ở góc dưới-trái (`top 88%`, `left 3%`) |
+| boot_menu | left 49%, top 27%, width 31%, height 468 |
+| Option row | height 64, spacing 12, padding 12 |
+| Icon | 36x36, gap to text 10 |
+| Visible rows | 6, the remaining entries scroll |
+| Font | BigBlueTerm437 Nerd Font Regular 24 |
+| Text colour | #cdd6f4 |
 
-Thanh option trải x 952…1520: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (icon bắt đầu
-952), avatar bắt đầu ≈1532 (cách 12px — không chạm). Menu dọc: **6 thanh** cửa sổ từ y 315 đến 742
-(pitch 76, thanh cao 64px). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 (hàng 6 dừng ở 742,
-cách 63px) — cả hai đều **0 px đè**.
+The number of visible rows follows:
 
-10 mục cuộn qua cửa sổ cố định: bấm ↓ tới mục cuối, list hiển thị mục 5…10, mục chọn dừng hàng đáy
-(y 683…746); bấm ↑ thì thanh chọn chạy lên (y 455…518) trong cửa sổ đứng yên. Icon 36×36 hiển thị cho
-6 hàng nhìn thấy (kiểm chứng pixel). Viewport chữ 547px — tên dài nhất "Advanced options for Arch Linux"
-(496px @24) + icon 46px vừa khít, không cắt.
+```
+rows = (height + item_spacing - 2 * item_padding) / (item_height + item_spacing)
+```
 
-## Lưu ý GRUB 2.16 (đã kiểm chứng)
+To change the number of rows, recompute `height` with this formula. For example,
+`height = 468` → `(468 + 12 - 24) / 76 = 6`, while the naive `6 * 64 + 5 * 12 = 444`
+only yields 5 rows.
 
-- `grub-mkfont` không có `--info`; tên font trong `PF2NAME` phải khớp chính xác (vd `BigBlueTerm437 Nerd Font Regular 24`).
-- Icons: file phải tên đúng class (`icons/arch.png`), PNG32, `icon_width`/`icon_height` khai báo
-  trong `boot_menu`. GRUB lấy icon của **class đầu tiên** trong `--class` có file khớp; tồn tại
-  `unknown.png` để dự phòng; `submenu` dùng `submenu.png`.
-- Thời `bigblue<size>.pf2` vào `GRUB_FONTS` (vd `"bigblue28 bigblue24 bigblue26"`) để `grub-mkconfig`
-  tự `loadfont`; nếu không, GRUB rơi về font mặc định và chữ render to hơn font khai báo.
-- Pixmap style phải chứa `*` (`item_*.png`); `"item"` không có `*` → `GRUB_ERR_BAD_ARGUMENT`, thanh option không vẽ.
-- `height` boot_menu điều khiển số dòng hiển thị: công thức đầy đủ
-  `rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)`.
-- Chữ dài hơn viewport sẽ bị cắt im ở viền phải (không tự wrap). GRUB chừa sẵn 36px cho icon
-  (`icon_width + item_icon_space`); đặt `icon_width = 0` + `item_icon_space = 0` để lấy lại 36px đó
-  khi theme không vẽ icon.
-- `GRUB_TERMINAL_OUTPUT` phải unset để theme render.
+## Notes
 
-## Kiểm chứng
-
-Đã boot thật trên VM (QEMU/libvirt, `-vga std`, 1920x1080) với **10 mục menu** (Arch, Advanced options,
-Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS) và **cửa sổ 6 dòng**:
-render 70k+ màu, icon 36×36 hiển thị cho cả 6 hàng nhìn thấy, không đè viền trên / dải chấm / logo /
-hoa văn dưới (0 px mỗi vùng), tất cả tên vừa (kể cả "Advanced options for Arch Linux"), cuộn đúng
-(↓ dần hiện mục 5…10, mục chọn dừng hàng đáy y 683…746; ↑ chạy lên y 455…518 trong cửa sổ đứng yên),
-label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-6rows-icons.png` (đầu) và
-`assets/grub-ciel-vm-6rows-icons-scrolled.png` (cuộn tới cuối).
+- The font name in `theme.txt` must match the name inside the `.pf2` file exactly
+  (`strings bigblue24.pf2 | grep -A1 PFF2NAME`).
+- Add the font to `GRUB_FONTS`, otherwise GRUB falls back to its default font.
+- `item_pixmap_style` and `selected_item_pixmap_style` must contain `*`, for example
+  `item_*.png`; a bare `item` makes GRUB fail the box pattern and drop the bars.
+- Icons must be named after the entry class, for example `icons/arch.png`. GRUB uses
+  the first `--class` of the entry that has a matching file; entries without an icon
+  fall back to `unknown.png`.
+- Text longer than the menu area is clipped — GRUB does not wrap. At `width 31%` with
+  icons the text viewport is 547px, so a 24px font fits the longest entry
+  ("Advanced options for Arch Linux", 496px); 26px (537px) and 30px (620px) do not.
+- Percentages must be integers: a decimal such as `49.5%` silently kills the whole
+  theme (blank render, no text).
+- Measured against `background.png` (1920x1080): top border y 140-178, left wall
+  x 786-825, glyph strip x 848-912, avatar x 1532-1758, lower ornament y 805-865.
+  The window occupies y 315-742, so it overlaps none of them.
