@@ -55,8 +55,9 @@ src/catppuccin-mocha-grub-theme/
 | Thành phần | Giá trị |
 |---|---|
 | `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD, `stretch` |
-| `boot_menu` | `left 50%`, `top 29%`, `width 40%`, `height 30%` |
+| `boot_menu` | bọc trong `+ canvas`: `left 50%`, `top 29%`, `width 40%`, `height 232` |
 | item | `item_height 80`, `item_spacing 24`, `item_padding 24`, `scrollbar false` |
+| số dòng hiện | 2 dòng; `rows = floor((H − item_padding) / (item_height + item_spacing))` ⇒ 2 dòng khi `232 ≤ H < 336`. `H` là `height` của **canvas** (không phải của `boot_menu`) |
 | font | `BigBlueTerm437 Nerd Font Regular 28` cho cả `item_font`, `selected_item_font`, `terminal-font`, label |
 | màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
 | nền thanh | `item_pixmap_style = "item"` / `selected_item_pixmap_style = "select"` (khớp `item_c.png`, `select_c.png`) |
