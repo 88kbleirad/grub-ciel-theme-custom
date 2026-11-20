@@ -64,24 +64,6 @@ src/catppuccin-mocha-grub-theme/
 
 Mép phải thanh option (90%) nằm trong đường viền HUD (≈93.1% ở ảnh nền) — không đè viền.
 
-## Ghi chú kỹ thuật (đã kiểm chứng trên GRUB 2.16)
-
-- **`grub-mkfont` không có tuỳ chọn `--info`.** Lấy tên nội bộ của file `.pf2` bằng:
-
-  ```sh
-  grub-mkfont -s 28 -o bigblue28.pf2 /usr/share/fonts/BigBlueTerm/BigBlueTerm437NerdFont-Regular.ttf
-  strings bigblue28.pf2 | grep -A1 PFF2NAME    # -> BigBlueTerm437 Nerd Font Regular 28
-  ```
-
-  Tên trong `theme.txt` phải **trùng chính xác** (kể cả cỡ chữ). Bản `...NerdFontMono...ttf` sẽ cho tên có chữ `Mono`.
-- **Phần trăm phải là số nguyên** — `61.8%` làm hỏng toàn bộ theme (rơi về menu text-mode); phép tính kiểu `68%-112` không được hỗ trợ, phải tự quy đổi ra `%` nguyên.
-- **Không dùng `+ image` đè lên vùng menu**: GRUB vẽ image lên trên menu → chữ menu bị che. Khung HUD phải nướng sẵn vào ảnh nền.
-- `item_pixmap_style`/`selected_item_pixmap_style` chấp nhận cả dạng ngắn `"item"`/`"select"` **và** dạng mẫu `"item_*.png"`; chỉ cần file `_c.png` (tâm), các lát cạnh/góc là tuỳ chọn.
-- Ảnh nền phải **đúng 1920x1080, PNG24 8-bit, non-interlaced** (JPEG 1922x1083 gây xé/lệch ảnh khi GRUB stretch):
-  ```sh
-  magick <nguồn> -crop 1920x1080+1+1 +repage -define png:format=png24 -depth 8 -interlace none -strip PNG24:background.png
-  ```
-
 ## Kiểm chứng
 
 Đã boot thật trên VM (QEMU/libvirt, `-vga std` 16 MiB, 1920x1080): theme render 70k+ màu, thanh chọn
