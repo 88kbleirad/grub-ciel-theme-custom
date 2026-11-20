@@ -14,13 +14,16 @@ terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
 # Boot menu — left of the baked-in avatar, inside the HUD frame.
 # Visible rows (GRUB gui_list.c:get_num_shown_items):
 #   rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)
-# 5 visible rows: 5*72 + 4*24 + 2*16 = 488 (menu bottom 758, decor line 805, frame 858)
-# Menu spans x 960…1497; avatar starts at x ≈1532, so no overlap.
+# 6 visible rows: 6*72 + 5*24 + 2*16 = 584 → rows at y 221..772, box bottom 789,
+# 33px above the HUD ornament (805) and 69px above the frame border (858).
+# Scrolling is minimal-shift (make_selected_item_visible): the block never moves;
+# at 10+ entries the selected item stays pinned to the bottom row.
+# Menu spans x 960...1497; avatar starts at x ≈1532, so no overlap.
 + boot_menu {
   left = 50%
-  top = 25%
+  top = 19%
   width = 28%
-  height = 488
+  height = 584
   item_font = "BigBlueTerm437 Nerd Font Regular 24"
   selected_item_font = "BigBlueTerm437 Nerd Font Regular 24"
   item_color = "#cdd6f4"
