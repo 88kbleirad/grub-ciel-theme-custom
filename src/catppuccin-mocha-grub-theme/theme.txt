@@ -4,39 +4,41 @@
 #    baked in at centre 85.7%/32.8%, Ø226 px — no separate logo overlay)
 # Option bar: item_c.png rgba(30,30,46,0.65) / select_c.png rgba(180,190,254,0.30)
 # Fonts: BigBlueTerm437 Nerd Font Regular 28 (terminal/countdown),
-#        BigBlueTerm437 Nerd Font Regular 24 (menu items)
+#        BigBlueTerm437 Nerd Font Regular 18 (menu items)
 
 title-text: ""
 desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
 terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
 
-# Boot menu — near-full-width inside the HUD frame, 7 rows.
-# Geometry is in absolute pixels (GRUB accepts bare integers) because the frame
-# edges do not land on whole percentages:
-#   frame left wall 786..825 | decorative glyph strip 848..912 | avatar 1532..1758
-#   frame top border 140..178 | lower ornament 805..865 | frame bottom 858
+# Boot menu — inside the HUD frame, left of the baked-in avatar, 10 rows.
+# Frame refs (measured on background.png): top border 140-178, left wall 786-825,
+# glyph strip 848-912, avatar 1532-1758, lower ornament 805-865.
 # Visible rows (grub-core/gfxmenu/gui_list.c:get_num_shown_items):
 #   rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)
-#   7*72 + 6*19 + 2*3 = 624  →  (624 + 19 − 6) / 91 = 7
-# Bars span x 831..1522 (10px clear of the avatar), rows y 181..798:
-#   3px below the top border, 7px above the lower ornament.
-# Scrolling is minimal-shift (make_selected_item_visible): the block never moves;
-# at 10+ entries the selected item stays pinned to the bottom row.
+#   10*40 + 9*6 + 2*12 = 478 → (478 + 6 − 24) / 46 = 10
+# Bars span x 998..1516 (16px clear of the avatar); rows y 250..702 (top 22% = 238),
+# i.e. below the top border and above the lower ornament — 0px overlap on both.
+# icon_width=0 + item_icon_space=0 reclaim the 36px icon gutter so the longest
+# entry (480px @18) fits the 482px text viewport.
+# Scrolling is minimal-shift: the block stays fixed; the last entry pins to the
+# bottom row (y 663..702).
 + boot_menu {
-  left = 828
-  top = 178
-  width = 700
-  height = 624
-  item_font = "BigBlueTerm437 Nerd Font Regular 24"
-  selected_item_font = "BigBlueTerm437 Nerd Font Regular 24"
+  left = 52%
+  top = 22%
+  width = 27%
+  height = 478
+  item_font = "BigBlueTerm437 Nerd Font Regular 18"
+  selected_item_font = "BigBlueTerm437 Nerd Font Regular 18"
   item_color = "#cdd6f4"
   selected_item_color = "#cdd6f4"
   item_pixmap_style = "item_*.png"
   selected_item_pixmap_style = "select_*.png"
-  item_height = 72
-  item_spacing = 19
-  item_padding = 3
+  item_height = 40
+  item_spacing = 6
+  item_padding = 12
+  icon_width = 0
+  item_icon_space = 0
   scrollbar = false
 }
 
