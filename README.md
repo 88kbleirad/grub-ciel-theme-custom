@@ -57,27 +57,29 @@ src/catppuccin-mocha-grub-theme/
 | Thành phần | Giá trị |
 |---|---|
 | `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD + avatar, `stretch` |
-| `boot_menu` | `left 52%`, `top 22%`, `width 27%`, `height 478` |
-| item | `item_height 40`, `item_spacing 6`, `item_padding 12`, `icon_width 0`, `item_icon_space 0`, `scrollbar false` |
-| số dòng hiện | 10 dòng; `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 10 khi `H = 478` (`10*40 + 9*6 + 2*12`) |
-| font | `BigBlueTerm437 Nerd Font Regular 18` cho `item_font`/`selected_item_font`; `…28` cho `terminal-font` + label |
+| `boot_menu` | `left 49%`, `top 16%`, `width 30%`, `height 640` |
+| item | `item_height 58`, `item_spacing 4`, `item_padding 12`, `icon_width 0`, `item_icon_space 0`, `scrollbar false` |
+| số dòng hiện | 10 dòng; `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 10 khi `H = 640` (`10*58 + 9*4 + 2*12`) |
+| font | `BigBlueTerm437 Nerd Font Regular 26` cho `item_font`/`selected_item_font` + `terminal-font`; `…28` cho label |
 | màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
 | nền thanh | `item_pixmap_style = "item_*.png"` / `selected_item_pixmap_style = "select_*.png"` (bắt buộc có `*` — GRUB 2.16 trả lỗi pattern thiếu `*` → box rỗng) |
 | `label` | đồng hồ đếm ngược ở góc dưới-trái (`top 88%`, `left 3%`) |
 
-Thanh option trải x 998…1516: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (chữ bắt đầu
-1010 nên **không đè** dải), avatar bắt đầu ≈1532 (cách 16px — không chạm).
-Menu dọc: 10 thanh từ y 250 đến 702 (pitch 46). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 —
-cả hai đều **0 px đè**.
+Thanh option trải x 952…1501: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (chữ bắt đầu
+952 nên **không đè** dải), avatar bắt đầu ≈1532 (cách 31px — không chạm).
+Menu dọc: 10 thanh từ y 184 đến 799 (pitch 62). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 —
+cả hai đều **0 px đè** (list trải kín vùng trong của khung).
 
 Cuộn dùng `make_selected_item_visible` của GRUB: khối menu **không di chuyển**, chỉ `first_shown_index`
-đổi. Với 10 option, bấm ↓ tới option cuối thì option đó nằm ở hàng đáy (y 663…702); bấm ↑ thì chỉ thanh
-chọn chạy lên trong khối đứng yên. Viewport chữ 482px — tên dài nhất
-"Windows Boot Manager (on /dev/nvme0n1p1)" (480px @18) vừa khít, không cắt.
+đổi. Với 10 option, bấm ↓ tới option cuối thì danh sách vẫn dừng ở hàng đáy (y 742…799, cách hoa văn 6px —
+không trượt, không dư khoảng trống); bấm ↑ thì chỉ thanh chọn chạy lên trong khối đứng yên.
+Viewport chữ 525px — tên dài nhất "Advanced options for Arch Linux" (537px @26, ink 525px) vừa khít, không cắt.
 
 ## Lưu ý GRUB 2.16 (đã kiểm chứng)
 
-- `grub-mkfont` không có `--info`; tên font trong `PF2NAME` phải khớp chính xác (vd `BigBlueTerm437 Nerd Font Regular 18`).
+- `grub-mkfont` không có `--info`; tên font trong `PF2NAME` phải khớp chính xác (vd `BigBlueTerm437 Nerd Font Regular 26`).
+- Thời `bigblue26.pf2` vào `GRUB_FONTS` (vd `"bigblue28 bigblue24 bigblue26"`) để `grub-mkconfig`
+  tự `loadfont` nó; nếu không, GRUB rơi về font mặc định và chữ render to hơn font khai báo.
 - Pixmap style phải chứa `*` (`item_*.png`); `"item"` không có `*` → `GRUB_ERR_BAD_ARGUMENT`, thanh option không vẽ.
 - `height` boot_menu điều khiển số dòng hiển thị: công thức đầy đủ
   `rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)`.
@@ -88,7 +90,8 @@ chọn chạy lên trong khối đứng yên. Viewport chữ 482px — tên dài
 
 ## Kiểm chứng
 
-Đã boot thật trên VM (QEMU/libvirt, `-vga std`, 1920x1080) với **10 mục menu**: render 70k+ màu,
-cả 10 dòng hiển thị đồng thời (pitch 46), thanh chọn cao 40px, không đè viền trên / dải chấm /
-logo / hoa văn dưới (0 px mỗi vùng), scroll đúng (↓ giữ khối cố định, chọn hàng đáy y 663…702),
-label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-10os-font18.png`.
+Đã boot thật trên VM (QEMU/libvirt, `-vga std`, 1920x1080) với **10 mục menu** (Arch, Advanced options,
+Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS): render 70k+ màu, cả 10 dòng
+hiển thị đồng thời (pitch 62, thanh chọn cao 58px, font 26), không đè viền trên / dải chấm / logo /
+hoa văn dưới (0 px mỗi vùng), scroll đúng (↓ giữ khối cố định, entry cuối dừng ở hàng đáy y 742…799),
+label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-10os-font26.png`.

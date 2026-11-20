@@ -3,39 +3,37 @@
 #   (Figma export ciel_bg_grub_edited_3.jpg: character + HUD frame + Ciel avatar
 #    baked in at centre 85.7%/32.8%, Ø226 px — no separate logo overlay)
 # Option bar: item_c.png rgba(30,30,46,0.65) / select_c.png rgba(180,190,254,0.30)
-# Fonts: BigBlueTerm437 Nerd Font Regular 28 (terminal/countdown),
-#        BigBlueTerm437 Nerd Font Regular 18 (menu items)
+# Fonts: BigBlueTerm437 Nerd Font Regular 26 (menu items + terminal),
+#        BigBlueTerm437 Nerd Font Regular 28 (countdown label)
 
 title-text: ""
 desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
-terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
+terminal-font: "BigBlueTerm437 Nerd Font Regular 26"
 
 # Boot menu — inside the HUD frame, left of the baked-in avatar, 10 rows.
 # Frame refs (measured on background.png): top border 140-178, left wall 786-825,
 # glyph strip 848-912, avatar 1532-1758, lower ornament 805-865.
-# Visible rows (grub-core/gfxmenu/gui_list.c:get_num_shown_items):
-#   rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)
-#   10*40 + 9*6 + 2*12 = 478 → (478 + 6 − 24) / 46 = 10
-# Bars span x 998..1516 (16px clear of the avatar); rows y 250..702 (top 22% = 238),
-# i.e. below the top border and above the lower ornament — 0px overlap on both.
-# icon_width=0 + item_icon_space=0 reclaim the 36px icon gutter so the longest
-# entry (480px @18) fits the 482px text viewport.
+# 10 rows: 10*58 + 9*4 + 2*12 = 640 → (640 + 4 − 24) / 62 = 10
+# Bars span x 952..1501 (31px clear of the avatar); rows y 184..799 (top 16% = 173),
+# i.e. below the top border and up to the lower ornament — 0px overlap on both.
+# icon_width=0 + item_icon_space=0 reclaim GRUB's 36px icon gutter so the longest
+# entry ("Advanced options for Arch Linux", 537px @26) fits the 525px text viewport.
 # Scrolling is minimal-shift: the block stays fixed; the last entry pins to the
-# bottom row (y 663..702).
+# bottom row (y 742..799).
 + boot_menu {
-  left = 52%
-  top = 22%
-  width = 27%
-  height = 478
-  item_font = "BigBlueTerm437 Nerd Font Regular 18"
-  selected_item_font = "BigBlueTerm437 Nerd Font Regular 18"
+  left = 49%
+  top = 16%
+  width = 30%
+  height = 640
+  item_font = "BigBlueTerm437 Nerd Font Regular 26"
+  selected_item_font = "BigBlueTerm437 Nerd Font Regular 26"
   item_color = "#cdd6f4"
   selected_item_color = "#cdd6f4"
   item_pixmap_style = "item_*.png"
   selected_item_pixmap_style = "select_*.png"
-  item_height = 40
-  item_spacing = 6
+  item_height = 58
+  item_spacing = 4
   item_padding = 12
   icon_width = 0
   item_icon_space = 0
