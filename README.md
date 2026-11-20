@@ -57,28 +57,32 @@ src/catppuccin-mocha-grub-theme/
 | Thành phần | Giá trị |
 |---|---|
 | `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD + avatar, `stretch` |
-| `boot_menu` | `left 49%`, `top 28%`, `width 30%`, `height 352` |
-| item | `item_height 56`, `item_spacing 12`, `item_padding 12`, `icon_width 0`, `item_icon_space 0`, `scrollbar false` |
-| số dòng hiện | **5 dòng** (cửa sổ cuộn trên 10 mục); `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 5 khi `H = 352` (`5*56 + 4*12 + 2*12`). `H = 328` chỉ cho 4 dòng |
-| font | `BigBlueTerm437 Nerd Font Regular 26` cho `item_font`/`selected_item_font` + `terminal-font`; `…28` cho label |
+| `boot_menu` | `left 49%`, `top 27%`, `width 31%`, `height 392` |
+| item | `item_height 64`, `item_spacing 12`, `item_padding 12`, `icon_width 36`, `icon_height 36`, `item_icon_space 10`, `scrollbar false` |
+| số dòng hiện | **5 dòng** (cửa sổ cuộn trên 10 mục); `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 5 khi `H = 392` (`5*64 + 4*12 + 2*12`). `H = 368` chỉ cho 4 dòng |
+| font | `BigBlueTerm437 Nerd Font Regular 24` cho `item_font`/`selected_item_font`; `…28` cho label; `…26` cho `terminal-font` |
+| icon | `icons/<class>.png` 36×36 PNG32; GRUB lấy class đầu tiên có file khớp (`arch`, `windows`, `ubuntu`, `fedora`, `debian`, `opensuse`, `void`, `nixos`, `systemrescue`, `gnu-linux`, `unknown`) |
 | màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
 | nền thanh | `item_pixmap_style = "item_*.png"` / `selected_item_pixmap_style = "select_*.png"` (bắt buộc có `*` — GRUB 2.16 trả lỗi pattern thiếu `*` → box rỗng) |
 | `label` | đồng hồ đếm ngược ở góc dưới-trái (`top 88%`, `left 3%`) |
 
-Thanh option trải x 952…1501: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (chữ bắt đầu
-952 nên **không đè** dải), avatar bắt đầu ≈1532 (cách 31px — không chạm).
-Menu dọc: **5 thanh** cửa sổ từ y 314 đến 641 (pitch 68, thanh cao 56px). Viền trên HUD kết thúc 178,
-hoa văn dưới bắt đầu 805 — cả hai đều **0 px đè** (cửa sổ nằm giữa khung, không chạm biên trên/dưới).
+Thanh option trải x 952…1520: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (icon bắt đầu
+952), avatar bắt đầu ≈1532 (cách 12px — không chạm). Menu dọc: **5 thanh** cửa sổ từ y 315 đến 660
+(pitch 76, thanh cao 64px). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 — cả hai đều **0 px đè**.
 
-10 mục cuộn qua cửa sổ cố định: bấm ↓ tới mục cuối, list hiển thị mục 6…10, mục chọn dừng ở hàng đáy
-(y 586…641); bấm ↑ thì thanh chọn chạy lên trong cửa sổ đứng yên — không trượt lệch, không dư khoảng trống.
-Viewport chữ 525px — tên dài nhất "Advanced options for Arch Linux" (537px @26, ink 525px) vừa khít.
+10 mục cuộn qua cửa sổ cố định: bấm ↓ tới mục cuối, list hiển thị mục 6…10, mục chọn dừng hàng đáy
+(y 607…670); bấm ↑ thì thanh chọn chạy lên (y 379…442) trong cửa sổ đứng yên. Icon 36×36 hiển thị cho
+5 hàng nhìn thấy (kiểm chứng pixel). Viewport chữ 547px — tên dài nhất "Advanced options for Arch Linux"
+(496px @24) + icon 46px vừa khít, không cắt.
 
 ## Lưu ý GRUB 2.16 (đã kiểm chứng)
 
-- `grub-mkfont` không có `--info`; tên font trong `PF2NAME` phải khớp chính xác (vd `BigBlueTerm437 Nerd Font Regular 26`).
-- Thời `bigblue26.pf2` vào `GRUB_FONTS` (vd `"bigblue28 bigblue24 bigblue26"`) để `grub-mkconfig`
-  tự `loadfont` nó; nếu không, GRUB rơi về font mặc định và chữ render to hơn font khai báo.
+- `grub-mkfont` không có `--info`; tên font trong `PF2NAME` phải khớp chính xác (vd `BigBlueTerm437 Nerd Font Regular 24`).
+- Icons: file phải tên đúng class (`icons/arch.png`), PNG32, `icon_width`/`icon_height` khai báo
+  trong `boot_menu`. GRUB lấy icon của **class đầu tiên** trong `--class` có file khớp; tồn tại
+  `unknown.png` để dự phòng; `submenu` dùng `submenu.png`.
+- Thời `bigblue<size>.pf2` vào `GRUB_FONTS` (vd `"bigblue28 bigblue24 bigblue26"`) để `grub-mkconfig`
+  tự `loadfont`; nếu không, GRUB rơi về font mặc định và chữ render to hơn font khai báo.
 - Pixmap style phải chứa `*` (`item_*.png`); `"item"` không có `*` → `GRUB_ERR_BAD_ARGUMENT`, thanh option không vẽ.
 - `height` boot_menu điều khiển số dòng hiển thị: công thức đầy đủ
   `rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)`.
@@ -91,7 +95,8 @@ Viewport chữ 525px — tên dài nhất "Advanced options for Arch Linux" (537
 
 Đã boot thật trên VM (QEMU/libvirt, `-vga std`, 1920x1080) với **10 mục menu** (Arch, Advanced options,
 Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS) và **cửa sổ 5 dòng**:
-render 70k+ màu, 5 dòng hiển thị đồng thời (pitch 68, thanh cao 56px, font 26), không đè topền trên /
-dải chấm / logo / hoa văn dưới (0 px mỗi vùng), cuộn đúng (↓ dần hiện mục 6…10, mục chọn dừng hàng đáy
-y 586…641; ↑ chạy lên trong cửa sổ đứng yên), label đếm ngược hiển thị.
-Ảnh: `assets/grub-ciel-vm-5rows-font26.png` (đầu) và `assets/grub-ciel-vm-5rows-scrolled.png` (cuộn tới cuối).
+render 70k+ màu, icon 36×36 hiển thị cho cả 5 hàng nhìn thấy, không đè viền trên / dải chấm / logo /
+hoa văn dưới (0 px mỗi vùng), tất cả tên vừa (kể cả "Advanced options for Arch Linux"), cuộn đúng
+(↓ dần hiện mục 6…10, mục chọn dừng hàng đáy y 607…670; ↑ chạy lên y 379…442 trong cửa sổ đứng yên),
+label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-5rows-icons.png` (đầu) và
+`assets/grub-ciel-vm-5rows-icons-scrolled.png` (cuộn tới cuối).

@@ -3,41 +3,44 @@
 #   (Figma export ciel_bg_grub_edited_3.jpg: character + HUD frame + Ciel avatar
 #    baked in at centre 85.7%/32.8%, Ø226 px — no separate logo overlay)
 # Option bar: item_c.png rgba(30,30,46,0.65) / select_c.png rgba(180,190,254,0.30)
-# Fonts: BigBlueTerm437 Nerd Font Regular 26 (menu items + terminal),
-#        BigBlueTerm437 Nerd Font Regular 28 (countdown label)
+# Fonts: BigBlueTerm437 Nerd Font Regular 24 (menu items),
+#        BigBlueTerm437 Nerd Font Regular 28 (countdown label),
+#        BigBlueTerm437 Nerd Font Regular 26 (terminal-font)
+# Icons: icons/<class>.png, 36x36 PNG32 (normalized); GRUB picks the first class of
+#   the entry that has a matching file (arch, windows, ubuntu, fedora, debian,
+#   opensuse, void, nixos, systemrescue, gnu-linux, unknown).
 
 title-text: ""
 desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
 terminal-font: "BigBlueTerm437 Nerd Font Regular 26"
 
-# Boot menu — inside the HUD frame, 5 visible rows out of 10 (windowed, scrollable).
+# Boot menu — inside the HUD frame, 5 visible rows out of 10 (scrollable window).
 # Frame refs (measured on background.png): top border 140-178, left wall 786-825,
 # glyph strip 848-912, avatar 1532-1758, lower ornament 805-865.
-# 5 rows: 5*56 + 4*12 + 2*12 = 352 → (352 + 12 − 24) / 68 = 5
-# (the bare 5*56 + 4*12 = 328 gives only 4 rows — padding is part of the formula.)
-# Bars span x 952..1501; rows y 314..641 (top 28% = 302):
-#   below the top border, above the lower ornament — 0px overlap on both.
-# icon_width=0 + item_icon_space=0 reclaim GRUB's 36px icon gutter so the longest
-# entry ("Advanced options for Arch Linux", 537px @26) fits the 525px text viewport.
-# Scrolling is minimal-shift: the block stays fixed, the 10 entries scroll in/out,
-# and the selected entry never leaves the 5 visible rows.
+# 5 rows: 5*64 + 4*12 + 2*12 = 392 → (392 + 12 − 24) / 76 = 5
+# (368 = 5*64+4*12 gives only 4 rows — 2*item_padding is part of the formula.)
+# Bars span x 952..1520; rows y 315..660 (top 27% = 292):
+#   below the top border, above the lower ornament; 0px overlap with the avatar.
+# Icons occupy 36px + 10px gap, so the text viewport is 547px; the longest entry
+# ("Advanced options for Arch Linux", 496px @24) still fits uncut.
 + boot_menu {
   left = 49%
-  top = 28%
-  width = 30%
-  height = 352
-  item_font = "BigBlueTerm437 Nerd Font Regular 26"
-  selected_item_font = "BigBlueTerm437 Nerd Font Regular 26"
+  top = 27%
+  width = 31%
+  height = 392
+  item_font = "BigBlueTerm437 Nerd Font Regular 24"
+  selected_item_font = "BigBlueTerm437 Nerd Font Regular 24"
   item_color = "#cdd6f4"
   selected_item_color = "#cdd6f4"
   item_pixmap_style = "item_*.png"
   selected_item_pixmap_style = "select_*.png"
-  item_height = 56
+  item_height = 64
   item_spacing = 12
   item_padding = 12
-  icon_width = 0
-  item_icon_space = 0
+  icon_width = 36
+  icon_height = 36
+  item_icon_space = 10
   scrollbar = false
 }
 
