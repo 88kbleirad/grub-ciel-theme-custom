@@ -1,50 +1,42 @@
-# GRUB2 gfxmenu pop theme, based and inspired by Vimix and Dracula grub themes
-# Designed for any resolution
-# Customized to match the "Ciel" night-sky wallpaper (ciel_bg_grub.png):
-#   - menu moved to the clean bottom-right sky
 #   - countdown bottom-left, logo small top-left
-#   - selected-item bar retinted to a starlight lavender
+# GRUB2 gfxmenu theme — Ciel Mocha (Catppuccin Mocha palette)
+# Background: background.png — 1920x1080, PNG24 8-bit non-interlaced
+#   (Figma export: character + HUD frame only; no option box, no round logo)
+# Logo: logo_ciel.png — 224x224 PNG32, lavender #B4BEFE
+# Option bar: item_c.png rgba(30,30,46,0.65) / select_c.png rgba(180,190,254,0.30)
+# Font: BigBlueTerm437 Nerd Font Regular 28 (must be loaded before the theme)
 
-# Global Property
 title-text: ""
-desktop-image: "ciel_bg_grub.png"
+desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
-desktop-color: "#1E1E2E"
-terminal-font: "BigBlueTerm437 Nerd Font Mono Regular 16"
-terminal-left: "0"
-terminal-top: "0"
-terminal-width: "100%"
-terminal-height: "100%"
-terminal-border: "0"
+terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
 
 # Logo image (small, top-left; large logos would cover the nebula)
-+ image {
 	left = 3%
 	top = 3%
 	width = 96
 	height = 96
 	file = "logo.png"
-}
-
-# Show the boot menu (bottom-right, away from the nebula)
+# Boot menu — inside the HUD frame baked into the background
 + boot_menu {
-  left = 57%
-  top = 52%
-  width = 480
-  height = 34%
-  item_font = "Unifont Regular 16"
-  item_color = "#CDD6F4"
-  selected_item_color = "#F0F2FA"
-  icon_width = 32
-  icon_height = 32
-  item_icon_space = 20
-  item_height = 36
-  item_padding = 5
-  item_spacing = 10
+  left = 50%
+  top = 29%
+  width = 40%
+  height = 30%
+  item_font = "BigBlueTerm437 Nerd Font Regular 28"
+  selected_item_font = "BigBlueTerm437 Nerd Font Regular 28"
+  item_color = "#cdd6f4"
+  selected_item_color = "#cdd6f4"
+  item_pixmap_style = "item_*.png"
   selected_item_pixmap_style = "select_*.png"
+  item_height = 80
+  item_spacing = 24
+  item_padding = 24
+  scrollbar = false
 }
 
-# Show a countdown message using the label component
+# Ciel logo — REMOVED (round avatar wanted gone; see background.png note)
+# Countdown — bottom-left label
 + label {
   top = 88%
   left = 3%
@@ -52,5 +44,6 @@ terminal-border: "0"
   align = "left"
   id = "__timeout__"
   text = "Booting in %d seconds"
-  color = "#CDD6F4"
+  color = "#cdd6f4"
+  font = "BigBlueTerm437 Nerd Font Regular 28"
 }
