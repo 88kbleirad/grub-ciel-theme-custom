@@ -57,9 +57,9 @@ src/catppuccin-mocha-grub-theme/
 | Thành phần | Giá trị |
 |---|---|
 | `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD + avatar, `stretch` |
-| `boot_menu` | `left 49%`, `top 16%`, `width 30%`, `height 640` |
-| item | `item_height 58`, `item_spacing 4`, `item_padding 12`, `icon_width 0`, `item_icon_space 0`, `scrollbar false` |
-| số dòng hiện | 10 dòng; `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 10 khi `H = 640` (`10*58 + 9*4 + 2*12`) |
+| `boot_menu` | `left 49%`, `top 28%`, `width 30%`, `height 352` |
+| item | `item_height 56`, `item_spacing 12`, `item_padding 12`, `icon_width 0`, `item_icon_space 0`, `scrollbar false` |
+| số dòng hiện | **5 dòng** (cửa sổ cuộn trên 10 mục); `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 5 khi `H = 352` (`5*56 + 4*12 + 2*12`). `H = 328` chỉ cho 4 dòng |
 | font | `BigBlueTerm437 Nerd Font Regular 26` cho `item_font`/`selected_item_font` + `terminal-font`; `…28` cho label |
 | màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
 | nền thanh | `item_pixmap_style = "item_*.png"` / `selected_item_pixmap_style = "select_*.png"` (bắt buộc có `*` — GRUB 2.16 trả lỗi pattern thiếu `*` → box rỗng) |
@@ -67,13 +67,12 @@ src/catppuccin-mocha-grub-theme/
 
 Thanh option trải x 952…1501: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (chữ bắt đầu
 952 nên **không đè** dải), avatar bắt đầu ≈1532 (cách 31px — không chạm).
-Menu dọc: 10 thanh từ y 184 đến 799 (pitch 62). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 —
-cả hai đều **0 px đè** (list trải kín vùng trong của khung).
+Menu dọc: **5 thanh** cửa sổ từ y 314 đến 641 (pitch 68, thanh cao 56px). Viền trên HUD kết thúc 178,
+hoa văn dưới bắt đầu 805 — cả hai đều **0 px đè** (cửa sổ nằm giữa khung, không chạm biên trên/dưới).
 
-Cuộn dùng `make_selected_item_visible` của GRUB: khối menu **không di chuyển**, chỉ `first_shown_index`
-đổi. Với 10 option, bấm ↓ tới option cuối thì danh sách vẫn dừng ở hàng đáy (y 742…799, cách hoa văn 6px —
-không trượt, không dư khoảng trống); bấm ↑ thì chỉ thanh chọn chạy lên trong khối đứng yên.
-Viewport chữ 525px — tên dài nhất "Advanced options for Arch Linux" (537px @26, ink 525px) vừa khít, không cắt.
+10 mục cuộn qua cửa sổ cố định: bấm ↓ tới mục cuối, list hiển thị mục 6…10, mục chọn dừng ở hàng đáy
+(y 586…641); bấm ↑ thì thanh chọn chạy lên trong cửa sổ đứng yên — không trượt lệch, không dư khoảng trống.
+Viewport chữ 525px — tên dài nhất "Advanced options for Arch Linux" (537px @26, ink 525px) vừa khít.
 
 ## Lưu ý GRUB 2.16 (đã kiểm chứng)
 
@@ -91,7 +90,8 @@ Viewport chữ 525px — tên dài nhất "Advanced options for Arch Linux" (537
 ## Kiểm chứng
 
 Đã boot thật trên VM (QEMU/libvirt, `-vga std`, 1920x1080) với **10 mục menu** (Arch, Advanced options,
-Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS): render 70k+ màu, cả 10 dòng
-hiển thị đồng thời (pitch 62, thanh chọn cao 58px, font 26), không đè viền trên / dải chấm / logo /
-hoa văn dưới (0 px mỗi vùng), scroll đúng (↓ giữ khối cố định, entry cuối dừng ở hàng đáy y 742…799),
-label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-10os-font26.png`.
+Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS) và **cửa sổ 5 dòng**:
+render 70k+ màu, 5 dòng hiển thị đồng thời (pitch 68, thanh cao 56px, font 26), không đè topền trên /
+dải chấm / logo / hoa văn dưới (0 px mỗi vùng), cuộn đúng (↓ dần hiện mục 6…10, mục chọn dừng hàng đáy
+y 586…641; ↑ chạy lên trong cửa sổ đứng yên), label đếm ngược hiển thị.
+Ảnh: `assets/grub-ciel-vm-5rows-font26.png` (đầu) và `assets/grub-ciel-vm-5rows-scrolled.png` (cuộn tới cuối).

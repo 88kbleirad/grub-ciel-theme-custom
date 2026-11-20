@@ -11,29 +11,30 @@ desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
 terminal-font: "BigBlueTerm437 Nerd Font Regular 26"
 
-# Boot menu — inside the HUD frame, left of the baked-in avatar, 10 rows.
+# Boot menu — inside the HUD frame, 5 visible rows out of 10 (windowed, scrollable).
 # Frame refs (measured on background.png): top border 140-178, left wall 786-825,
 # glyph strip 848-912, avatar 1532-1758, lower ornament 805-865.
-# 10 rows: 10*58 + 9*4 + 2*12 = 640 → (640 + 4 − 24) / 62 = 10
-# Bars span x 952..1501 (31px clear of the avatar); rows y 184..799 (top 16% = 173),
-# i.e. below the top border and up to the lower ornament — 0px overlap on both.
+# 5 rows: 5*56 + 4*12 + 2*12 = 352 → (352 + 12 − 24) / 68 = 5
+# (the bare 5*56 + 4*12 = 328 gives only 4 rows — padding is part of the formula.)
+# Bars span x 952..1501; rows y 314..641 (top 28% = 302):
+#   below the top border, above the lower ornament — 0px overlap on both.
 # icon_width=0 + item_icon_space=0 reclaim GRUB's 36px icon gutter so the longest
 # entry ("Advanced options for Arch Linux", 537px @26) fits the 525px text viewport.
-# Scrolling is minimal-shift: the block stays fixed; the last entry pins to the
-# bottom row (y 742..799).
+# Scrolling is minimal-shift: the block stays fixed, the 10 entries scroll in/out,
+# and the selected entry never leaves the 5 visible rows.
 + boot_menu {
   left = 49%
-  top = 16%
+  top = 28%
   width = 30%
-  height = 640
+  height = 352
   item_font = "BigBlueTerm437 Nerd Font Regular 26"
   selected_item_font = "BigBlueTerm437 Nerd Font Regular 26"
   item_color = "#cdd6f4"
   selected_item_color = "#cdd6f4"
   item_pixmap_style = "item_*.png"
   selected_item_pixmap_style = "select_*.png"
-  item_height = 58
-  item_spacing = 4
+  item_height = 56
+  item_spacing = 12
   item_padding = 12
   icon_width = 0
   item_icon_space = 0
