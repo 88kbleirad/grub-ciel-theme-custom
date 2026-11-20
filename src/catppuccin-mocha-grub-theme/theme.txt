@@ -15,12 +15,12 @@ desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
 terminal-font: "BigBlueTerm437 Nerd Font Regular 26"
 
-# Boot menu — inside the HUD frame, 5 visible rows out of 10 (scrollable window).
+# Boot menu — inside the HUD frame, 6 visible rows out of 10 (scrollable window).
 # Frame refs (measured on background.png): top border 140-178, left wall 786-825,
 # glyph strip 848-912, avatar 1532-1758, lower ornament 805-865.
-# 5 rows: 5*64 + 4*12 + 2*12 = 392 → (392 + 12 − 24) / 76 = 5
-# (368 = 5*64+4*12 gives only 4 rows — 2*item_padding is part of the formula.)
-# Bars span x 952..1520; rows y 315..660 (top 27% = 292):
+# 6 rows: 6*64 + 5*12 + 2*12 = 468 → (468 + 12 − 24) / 76 = 6
+# (444 = 6*64+5*12 gives only 5 rows — 2*item_padding is part of the formula.)
+# Bars span x 952..1520; rows y 315..742 (top 27% = 292):
 #   below the top border, above the lower ornament; 0px overlap with the avatar.
 # Icons occupy 36px + 10px gap, so the text viewport is 547px; the longest entry
 # ("Advanced options for Arch Linux", 496px @24) still fits uncut.
@@ -28,7 +28,7 @@ terminal-font: "BigBlueTerm437 Nerd Font Regular 26"
   left = 49%
   top = 27%
   width = 31%
-  height = 392
+  height = 468
   item_font = "BigBlueTerm437 Nerd Font Regular 24"
   selected_item_font = "BigBlueTerm437 Nerd Font Regular 24"
   item_color = "#cdd6f4"

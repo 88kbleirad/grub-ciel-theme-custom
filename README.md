@@ -57,9 +57,9 @@ src/catppuccin-mocha-grub-theme/
 | Thành phần | Giá trị |
 |---|---|
 | `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD + avatar, `stretch` |
-| `boot_menu` | `left 49%`, `top 27%`, `width 31%`, `height 392` |
+| `boot_menu` | `left 49%`, `top 27%`, `width 31%`, `height 468` |
 | item | `item_height 64`, `item_spacing 12`, `item_padding 12`, `icon_width 36`, `icon_height 36`, `item_icon_space 10`, `scrollbar false` |
-| số dòng hiện | **5 dòng** (cửa sổ cuộn trên 10 mục); `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 5 khi `H = 392` (`5*64 + 4*12 + 2*12`). `H = 368` chỉ cho 4 dòng |
+| số dòng hiện | **6 dòng** (cửa sổ cuộn trên 10 mục); `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 6 khi `H = 468` (`6*64 + 5*12 + 2*12`). `H = 444` chỉ cho 5 dòng |
 | font | `BigBlueTerm437 Nerd Font Regular 24` cho `item_font`/`selected_item_font`; `…28` cho label; `…26` cho `terminal-font` |
 | icon | `icons/<class>.png` 36×36 PNG32; GRUB lấy class đầu tiên có file khớp (`arch`, `windows`, `ubuntu`, `fedora`, `debian`, `opensuse`, `void`, `nixos`, `systemrescue`, `gnu-linux`, `unknown`) |
 | màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
@@ -67,12 +67,13 @@ src/catppuccin-mocha-grub-theme/
 | `label` | đồng hồ đếm ngược ở góc dưới-trái (`top 88%`, `left 3%`) |
 
 Thanh option trải x 952…1520: viền trái HUD ở 786…825, dải chấm/glyph trang trí 848…912 (icon bắt đầu
-952), avatar bắt đầu ≈1532 (cách 12px — không chạm). Menu dọc: **5 thanh** cửa sổ từ y 315 đến 660
-(pitch 76, thanh cao 64px). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 — cả hai đều **0 px đè**.
+952), avatar bắt đầu ≈1532 (cách 12px — không chạm). Menu dọc: **6 thanh** cửa sổ từ y 315 đến 742
+(pitch 76, thanh cao 64px). Viền trên HUD kết thúc 178, hoa văn dưới bắt đầu 805 (hàng 6 dừng ở 742,
+cách 63px) — cả hai đều **0 px đè**.
 
-10 mục cuộn qua cửa sổ cố định: bấm ↓ tới mục cuối, list hiển thị mục 6…10, mục chọn dừng hàng đáy
-(y 607…670); bấm ↑ thì thanh chọn chạy lên (y 379…442) trong cửa sổ đứng yên. Icon 36×36 hiển thị cho
-5 hàng nhìn thấy (kiểm chứng pixel). Viewport chữ 547px — tên dài nhất "Advanced options for Arch Linux"
+10 mục cuộn qua cửa sổ cố định: bấm ↓ tới mục cuối, list hiển thị mục 5…10, mục chọn dừng hàng đáy
+(y 683…746); bấm ↑ thì thanh chọn chạy lên (y 455…518) trong cửa sổ đứng yên. Icon 36×36 hiển thị cho
+6 hàng nhìn thấy (kiểm chứng pixel). Viewport chữ 547px — tên dài nhất "Advanced options for Arch Linux"
 (496px @24) + icon 46px vừa khít, không cắt.
 
 ## Lưu ý GRUB 2.16 (đã kiểm chứng)
