@@ -11,20 +11,23 @@ desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
 terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
 
-# Boot menu — left of the baked-in avatar, inside the HUD frame.
-# Visible rows (GRUB gui_list.c:get_num_shown_items):
+# Boot menu — near-full-width inside the HUD frame, 7 rows.
+# Geometry is in absolute pixels (GRUB accepts bare integers) because the frame
+# edges do not land on whole percentages:
+#   frame left wall 786..825 | decorative glyph strip 848..912 | avatar 1532..1758
+#   frame top border 140..178 | lower ornament 805..865 | frame bottom 858
+# Visible rows (grub-core/gfxmenu/gui_list.c:get_num_shown_items):
 #   rows = (height + item_spacing − 2*item_padding) / (item_height + item_spacing)
-# 6 visible rows: 6*72 + 5*24 + 2*16 = 584 → rows at y 199..751, box top 184
-# (17%), bottom 768 — 37px above the HUD ornament (805), 90px above frame (858).
-# Top border ends at 178; row 1 text starts at 225 (clean).
+#   7*72 + 6*19 + 2*3 = 624  →  (624 + 19 − 6) / 91 = 7
+# Bars span x 831..1522 (10px clear of the avatar), rows y 181..798:
+#   3px below the top border, 7px above the lower ornament.
 # Scrolling is minimal-shift (make_selected_item_visible): the block never moves;
 # at 10+ entries the selected item stays pinned to the bottom row.
-# Menu spans x 960...1497; avatar starts at x ≈1532, so no overlap.
 + boot_menu {
-  left = 50%
-  top = 17%
-  width = 28%
-  height = 584
+  left = 828
+  top = 178
+  width = 700
+  height = 624
   item_font = "BigBlueTerm437 Nerd Font Regular 24"
   selected_item_font = "BigBlueTerm437 Nerd Font Regular 24"
   item_color = "#cdd6f4"
@@ -32,8 +35,8 @@ terminal-font: "BigBlueTerm437 Nerd Font Regular 28"
   item_pixmap_style = "item_*.png"
   selected_item_pixmap_style = "select_*.png"
   item_height = 72
-  item_spacing = 24
-  item_padding = 16
+  item_spacing = 19
+  item_padding = 3
   scrollbar = false
 }
 

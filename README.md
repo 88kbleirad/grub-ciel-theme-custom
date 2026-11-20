@@ -57,21 +57,23 @@ src/catppuccin-mocha-grub-theme/
 | Thành phần | Giá trị |
 |---|---|
 | `desktop-image` | `background.png` — nướng sẵn nhân vật + khung HUD + avatar, `stretch` |
-| `boot_menu` | `left 50%`, `top 17%`, `width 28%`, `height 584` |
-| item | `item_height 72`, `item_spacing 24`, `item_padding 16`, `scrollbar false` |
-| số dòng hiện | 6 dòng; `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 6 khi `H = 584` (`6*72 + 5*24 + 2*16`) |
+| `boot_menu` | `left 828`, `top 178`, `width 700`, `height 624` |
+| item | `item_height 72`, `item_spacing 19`, `item_padding 3`, `scrollbar false` |
+| số dòng hiện | 7 dòng; `rows = (H + spacing − 2*padding) / (item_height + spacing)` ⇒ 7 khi `H = 624` (`7*72 + 6*19 + 2*3`) |
 | font | `BigBlueTerm437 Nerd Font Regular 24` cho `item_font`/`selected_item_font`; `…28` cho `terminal-font` + label |
 | màu chữ | `#cdd6f4` (Catppuccin Mocha text) |
 | nền thanh | `item_pixmap_style = "item_*.png"` / `selected_item_pixmap_style = "select_*.png"` (bắt buộc có `*` — GRUB 2.16 trả lỗi pattern thiếu `*` → box rỗng) |
 | `label` | đồng hồ đếm ngược ở góc dưới-trái (`top 88%`, `left 3%`) |
 
-Menu nằm x 960...1497: dãy chấm tròn trang trí kết thúc ≈910 (cách 50px), avatar bắt đầu ≈1532 (cách 35px).
-Menu dọc: hộp từ 184 đến 768 (6 hàng vẽ ở y 199...751). Viền trên HUD kết thúc ở 178, chữ hàng 1 bắt đầu
-ở 225 nên **không đè viền** (0 px); hoa văn/hình thoi dưới bắt đầu ≈805 (cách hàng cuối 54px, cách hộp 37px).
+Menu nằm từ x 831 đến 1522 (thanh chọn 7 dòng): viền trái HUD ở 786..825, dải chấm/glyph trang trí
+848..912 — chữ bắt đầu 867 nên **không đè** dải; avatar bắt đầu ≈1532 (cách 10px — không chạm).
+Menu dọc: thanh y 181..252 ... 727..798 (7 hàng, pitch 91). Viền trên HUD kết thúc 178 (cách 3px),
+hoa văn dưới bắt đầu 805 (cách 7px). Cả hai biên đều sạch (0px đè).
 
 Cuộn dùng `make_selected_item_visible` của GRUB: khối menu **không di chuyển**, chỉ `first_shown_index`
-đổi. Với 10 option, bấm ↓ tới option cuối thì option đó luôn nằm ở hàng đáy (y 679...750, cách hoa văn 55px);
-bấm ↑ thì chỉ thanh chọn chạy lên trong khối đứng yên.
+đổi. Với 10 option, bấm ↓ tới option cuối thì option đó luôn nằm ở hàng đáy (y 727...798, cách hoa văn 7px);
+bấm ↑ thì chỉ thanh chọn chạy lên trong khối đứng yên. Viewport chữ 694px — tên dài nhất
+"Windows Boot Manager (on /dev/nvme0n1p1)" (640px @24) vừa khít, không cắt.
 
 ## Lưu ý GRUB 2.16 (đã kiểm chứng)
 
