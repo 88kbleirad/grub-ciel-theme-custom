@@ -5,7 +5,9 @@ GRUB2 gfxmenu theme cho VM Arch Linux (virt-manager/kvm, UEFI): nền **Ciel** (
 
 ## Preview
 
-<img src="assets/grub-ciel-vm-final6.png" alt="GRUB boot screen" width="720">
+<p align="center">
+  <img src="assets/grub-ciel-vm-6rows-icons.png" alt="GRUB boot screen — 6 rows with OS icons" width="900">
+</p>
 
 ## Cấu trúc
 
@@ -95,9 +97,9 @@ cách 63px) — cả hai đều **0 px đè**.
 ## Kiểm chứng
 
 Đã boot thật trên VM (QEMU/libvirt, `-vga std`, 1920x1080) với **10 mục menu** (Arch, Advanced options,
-Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS) và **cửa sổ 5 dòng**:
-render 70k+ màu, icon 36×36 hiển thị cho cả 5 hàng nhìn thấy, không đè viền trên / dải chấm / logo /
+Windows 11, Ubuntu, SystemRescue, Fedora, Debian, openSUSE, Void, NixOS) và **cửa sổ 6 dòng**:
+render 70k+ màu, icon 36×36 hiển thị cho cả 6 hàng nhìn thấy, không đè viền trên / dải chấm / logo /
 hoa văn dưới (0 px mỗi vùng), tất cả tên vừa (kể cả "Advanced options for Arch Linux"), cuộn đúng
-(↓ dần hiện mục 6…10, mục chọn dừng hàng đáy y 607…670; ↑ chạy lên y 379…442 trong cửa sổ đứng yên),
-label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-5rows-icons.png` (đầu) và
-`assets/grub-ciel-vm-5rows-icons-scrolled.png` (cuộn tới cuối).
+(↓ dần hiện mục 5…10, mục chọn dừng hàng đáy y 683…746; ↑ chạy lên y 455…518 trong cửa sổ đứng yên),
+label đếm ngược hiển thị. Ảnh: `assets/grub-ciel-vm-6rows-icons.png` (đầu) và
+`assets/grub-ciel-vm-6rows-icons-scrolled.png` (cuộn tới cuối).
