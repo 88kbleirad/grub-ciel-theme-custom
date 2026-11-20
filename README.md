@@ -1,6 +1,6 @@
 # GRUB Theme Ciel Mocha
 
-GRUB2 theme for Arch Linux (UEFI). The background is the Ciel character inside a HUD
+GRUB2 theme for Linux. The background is the Ciel character inside a HUD
 frame, using the Catppuccin Mocha palette and the BigBlueTerm437 Nerd Font.
 
 <p align="center">
