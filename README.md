@@ -82,10 +82,6 @@ Mép phải thanh option (90%) nằm trong đường viền HUD (≈93.1% ở �
   magick <nguồn> -crop 1920x1080+1+1 +repage -define png:format=png24 -depth 8 -interlace none -strip PNG24:background.png
   ```
 
-## Việc còn treo
-
-- **Vòng tròn avatar Ciel vẫn nằm sẵn trong `background.png`** (đĩa sáng tại ≈x68.4%/y62.9%; đo: bright-fraction 0.45 so với vùng trời sạch 0.00). Khối `+ image` logo trong `theme.txt` **đã xoá**, nhưng muốn mất hẳn thì phải **ẩn layer logo trong Figma rồi export lại PNG** và ghi đè `background.png` (sau đó chuẩn hoá lại theo lệnh `magick` ở trên).
-
 ## Kiểm chứng
 
 Đã boot thật trên VM (QEMU/libvirt, `-vga std` 16 MiB, 1920x1080): theme render 70k+ màu, thanh chọn
