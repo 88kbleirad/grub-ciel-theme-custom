@@ -10,9 +10,10 @@ frame, using the Catppuccin Mocha palette and the BigBlueTerm437 Nerd Font.
 ## Structure
 
 ```
-src/catppuccin-mocha-grub-theme/
+src/
 ├── theme.txt              # theme configuration
 ├── background.png         # 1920x1080, PNG24, non-interlaced
+├── ciel_bg_grub_figma.jpg # Figma source: character + HUD frame + avatar
 ├── item_c.png             # unselected option bar
 ├── select_c.png           # selected option bar
 ├── logo_ciel.png          # 226x226 PNG32 (unused — the avatar is baked into the background)
@@ -26,8 +27,9 @@ src/catppuccin-mocha-grub-theme/
 Copy the theme and the fonts:
 
 ```bash
-sudo cp -r src/catppuccin-mocha-grub-theme /boot/grub/themes/TEN_THEME/
-sudo cp src/catppuccin-mocha-grub-theme/bigblue*.pf2 /boot/grub/fonts/
+sudo mkdir -p /boot/grub/themes/TEN_THEME
+sudo cp -r src/*.png src/*.pf2 src/theme.txt src/icons /boot/grub/themes/TEN_THEME/
+sudo cp src/bigblue*.pf2 /boot/grub/fonts/
 ```
 
 Edit `/etc/default/grub`:
