@@ -1,6 +1,6 @@
 # GRUB2 gfxmenu theme — Ciel Mocha (Catppuccin Mocha palette)
 # Background: background.png — 1920x1080, PNG24 8-bit non-interlaced
-#   (Figma export ciel_bg_grub_figma.jpg: character + HUD frame + Ciel avatar
+#   (Figma source: character + HUD frame + Ciel avatar
 #    baked in at centre 85.7%/32.8%, Ø226 px — no separate logo overlay)
 # Option bar: item_c.png rgba(30,30,46,0.65) / select_c.png rgba(180,190,254,0.30)
 # Fonts: BigBlueTerm437 Nerd Font Regular 24 (menu items),

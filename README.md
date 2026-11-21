@@ -13,7 +13,6 @@ frame, using the Catppuccin Mocha palette and the BigBlueTerm437 Nerd Font.
 src/
 ├── theme.txt              # theme configuration
 ├── background.png         # 1920x1080, PNG24, non-interlaced
-├── ciel_bg_grub_figma.jpg # Figma source: character + HUD frame + avatar
 ├── item_c.png             # unselected option bar
 ├── select_c.png           # selected option bar
 ├── logo_ciel.png          # 226x226 PNG32 (unused — the avatar is baked into the background)
